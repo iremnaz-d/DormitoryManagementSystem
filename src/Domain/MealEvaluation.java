@@ -34,5 +34,9 @@ public class MealEvaluation {
         this.comment = comment;
     }
 
+    public LocalDate getMenuDate() {
+        return menuDate;
+    }
+
 
 }
