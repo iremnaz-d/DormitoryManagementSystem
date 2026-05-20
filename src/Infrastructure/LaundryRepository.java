@@ -45,4 +45,15 @@ public class LaundryRepository implements ILaundryRepository {
         }
         return null;
     }
+
+    @Override
+    public int findTakenMachinesByFloor(int floor) {
+        int counter = 0;
+        for (LaundryReservation i: reservationList){
+            if(i.getFloor() == floor && i.getMachineStatus().equals("Taken")) {
+                counter++;
+            }
+        }
+        return counter;
+    }
 }

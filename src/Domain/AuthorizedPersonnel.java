@@ -35,5 +35,4 @@ public class AuthorizedPersonnel extends User{
         this.title = title;
     }
 
-
 }

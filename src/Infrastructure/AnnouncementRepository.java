@@ -14,9 +14,9 @@ public class AnnouncementRepository implements IAnnouncementRepository {
         this.announcementList = new ArrayList<>();
     }
 
-    public AnnouncementRepository getInstance(){
+    public static AnnouncementRepository getInstance(){
         if(instance == null){
-            return new AnnouncementRepository();
+            instance =  new AnnouncementRepository();
         }
         return instance;
     }

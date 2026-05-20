@@ -1,5 +1,7 @@
 package Domain;
 
+import Application.Interfaces.IObserver;
+
 public abstract class User {
 
     private String username;

@@ -16,9 +16,9 @@ public class ShuttleScheduleRepository implements IShuttleScheduleRepository {
         this.shuttleScheduleMap = new HashMap<>();
     }
 
-    public ShuttleScheduleRepository getInstance(){
+    public static ShuttleScheduleRepository getInstance(){
         if(instance == null){
-            return new ShuttleScheduleRepository();
+            instance =  new ShuttleScheduleRepository();
         }
         return instance;
     }

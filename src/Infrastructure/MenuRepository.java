@@ -18,7 +18,7 @@ public class MenuRepository implements IMenuRepository {
 
     public MenuRepository getInstance(){
         if(instance == null){
-            return new MenuRepository();
+            instance =  new MenuRepository();
         }
         return instance;
     }

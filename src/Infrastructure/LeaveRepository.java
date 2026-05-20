@@ -18,7 +18,7 @@ public class LeaveRepository implements ILeaveRepository {
 
     public static LeaveRepository getInstance(){
         if(instance == null){
-            return new LeaveRepository();
+            instance = new LeaveRepository();
         }
         return instance;
     }

@@ -20,7 +20,7 @@ public class EvaluationRepository implements IEvaluationRepository {
 
     public EvaluationRepository getInstance(){
         if(instance == null){
-            return new EvaluationRepository();
+            instance = new EvaluationRepository();
         }
         return instance;
     }

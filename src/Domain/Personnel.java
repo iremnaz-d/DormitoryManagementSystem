@@ -1,16 +1,23 @@
 package Domain;
 
-public class Personnel extends User {
+import Application.Interfaces.IObserver;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Personnel extends User implements IObserver {
 
     private String name;
     private String jobType;
     private String currentShift;
+    private List<Announcement> inbox;
 
     public Personnel (String username, String password, String role, String name, String jobType){
         super(username, password, role);
         this.name = name;
         this.jobType = jobType;
         this.currentShift = "";
+        this.inbox = new ArrayList<>();
     }
 
     public String getPersonnelDetails(){
@@ -42,5 +49,8 @@ public class Personnel extends User {
     }
 
 
-
+    @Override
+    public void update(Announcement announcement) {
+        this.inbox.add(announcement);
+    }
 }

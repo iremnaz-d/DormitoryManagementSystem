@@ -14,5 +14,8 @@ public interface ITaskRepository {
 
     TaskAssignment findByPersonnel(Personnel personnel);
 
+    boolean contains(TaskAssignment task);
+
+    List<TaskAssignment> getTasksForPersonnel(Personnel personnel);
 
 }

@@ -16,9 +16,9 @@ public class TaskRepository implements ITaskRepository {
         this.tasks = new ArrayList<>();
     }
 
-    public TaskRepository getInstance(){
+    public static TaskRepository getInstance(){
         if(instance == null){
-            return new TaskRepository();
+            instance =  new TaskRepository();
         }
         return instance;
     }
@@ -48,4 +48,21 @@ public class TaskRepository implements ITaskRepository {
         }
         return null;
     }
+
+    @Override
+    public boolean contains(TaskAssignment task) {
+        return this.tasks.contains(task);
+    }
+
+    @Override
+    public List<TaskAssignment> getTasksForPersonnel(Personnel personnel) {
+        List<TaskAssignment> list = new ArrayList<>();
+        for (TaskAssignment i: this.tasks){
+            if(i.getPersonnel().getUsername().equals(personnel.getUsername()))
+                list.add(i);
+        }
+        return list;
+    }
+
+
 }

@@ -13,4 +13,6 @@ public interface ILaundryRepository {
     List<LaundryReservation> findAll();
 
     LaundryReservation findByStudent(Student student);
+
+    int findTakenMachinesByFloor(int floor);
 }
