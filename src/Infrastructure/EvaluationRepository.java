@@ -18,7 +18,7 @@ public class EvaluationRepository implements IEvaluationRepository {
         this.evaluationList = new ArrayList<>();
     }
 
-    public EvaluationRepository getInstance(){
+    public static EvaluationRepository getInstance(){
         if(instance == null){
             instance = new EvaluationRepository();
         }

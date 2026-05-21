@@ -16,7 +16,7 @@ public class MenuRepository implements IMenuRepository {
         this.menuList = new HashMap<>();
     }
 
-    public MenuRepository getInstance(){
+    public static MenuRepository getInstance(){
         if(instance == null){
             instance =  new MenuRepository();
         }

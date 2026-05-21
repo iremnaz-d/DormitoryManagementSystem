@@ -50,7 +50,7 @@ public class LeaveService {
         request.setEndDate(date);
         request.rejectRequest();
         return "Your request is postponed to " + date.toString()
-         + "/nParental consent for this delay is mandatory";
+         + "/nParental consent for leave delay is mandatory";
     }
 
 }
