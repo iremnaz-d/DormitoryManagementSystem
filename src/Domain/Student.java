@@ -24,6 +24,11 @@ public class Student extends User implements IObserver {
         return "Student: " + firstName + " " + lastName + "    Room No: " + roomNumber;
     }
 
+    public boolean isLegalRoomNumber(){
+        int n = this.roomNumber;
+        return (n>=100 && n<=118) || (n>=200 && n<=218) || (n>=300 && n<=318) || (n>=400 && n<=418) || (n>=500 && n<=518) || (n>=600 && n<=618);
+    }
+
     public String getFirstName() {
         return firstName;
     }

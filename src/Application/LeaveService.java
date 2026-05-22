@@ -16,7 +16,7 @@ public class LeaveService {
         this.repository = LeaveRepository.getInstance();
     }
 
-    public boolean submitRequest(Student student, LocalDate startDate, LocalDate endDate){
+    public boolean submitLeaveRequest(Student student, LocalDate startDate, LocalDate endDate){
         if(endDate.isBefore(startDate))
             return false;
 

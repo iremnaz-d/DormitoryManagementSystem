@@ -14,6 +14,24 @@ public abstract class User {
         this.role = role;
     }
 
+    public boolean isLegalUsername(){ //5-20 char
+        return this.username.length() >= 5 && this.username.length() < 20;
+    }
+
+    public boolean isLegalPassword(){ //en az 1 uppercase, 7-20 char, en az 1 digit
+        String s = this.password;
+        if(s.length() < 7 || s.length() > 20) return false;
+        int upperCtr = 0, digitCtr = 0;
+        for(int i = 0; i < s.length(); i++){
+            char c = s.charAt(i);
+            if((int) c >= 48 && (int) c <58) //c digit ise
+                digitCtr++;
+            else if((int) c >= 65 && (int) c < 90) //c upperCase ise
+                upperCtr++;
+        }
+        return !(upperCtr == 0 || digitCtr == 0);
+    }
+
     public boolean verifyPassword(String isPassword){
         return this.password.equals(isPassword);
     }

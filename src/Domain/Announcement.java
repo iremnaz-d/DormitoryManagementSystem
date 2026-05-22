@@ -7,13 +7,13 @@ public class Announcement {
     private String title;
     private String content;
     private LocalDate publishDate;
-    private boolean requiresResponse;
+ //   private boolean requiresResponse;
 
-    public Announcement(String title, String content, LocalDate publishDate, boolean requiresResponse) {
+    public Announcement(String title, String content, LocalDate publishDate) {
         this.title = title;
         this.content = content;
         this.publishDate = publishDate;
-        this.requiresResponse = requiresResponse;
+      //  this.requiresResponse = requiresResponse;
     }
 
     public String getAnnouncementContent(){
@@ -36,12 +36,12 @@ public class Announcement {
         this.content = content;
     }
 
-    public boolean isRequiresResponse() {
+ /*   public boolean isRequiresResponse() {
         return requiresResponse;
     }
 
     public void setRequiresResponse(boolean requiresResponse) {
         this.requiresResponse = requiresResponse;
-    }
+    }*/
 
 }

@@ -50,7 +50,7 @@ public class ShuttleService {
         return true;
     }
 
-    private void publishSchedule(ShuttleSchedule schedule) {
+    public void publishSchedule(ShuttleSchedule schedule) {
         this.repository.save(schedule);
     }
 

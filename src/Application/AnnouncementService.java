@@ -20,9 +20,9 @@ public class AnnouncementService implements ISubject {
         this.observerList = new ArrayList<>();
     }
 
-    public void publishAnnouncement(String title, String content, boolean requiresResponse){
+    public void publishAnnouncement(String title, String content){
 
-        Announcement announcement = new Announcement(title, content, LocalDate.now(),requiresResponse);
+        Announcement announcement = new Announcement(title, content, LocalDate.now());
         repository.save(announcement);
         notifyObservers(announcement);
     }
@@ -42,5 +42,9 @@ public class AnnouncementService implements ISubject {
         for (IObserver observer : observerList) {
             observer.update(announcement);
         }
+    }
+
+    public List<Announcement> getAnnouncementList(){
+        return this.repository.findAll();
     }
 }
