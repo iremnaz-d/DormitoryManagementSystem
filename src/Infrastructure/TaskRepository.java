@@ -4,16 +4,19 @@ import Application.Interfaces.ITaskRepository;
 import Domain.Personnel;
 import Domain.TaskAssignment;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class TaskRepository implements ITaskRepository {
 
     private static TaskRepository instance;
-    private List<TaskAssignment> tasks;
+    private Set<TaskAssignment> tasks;
 
     private TaskRepository(){
-        this.tasks = new ArrayList<>();
+        this.tasks = new TreeSet<>(
+                Comparator.comparing(TaskAssignment::getDateTime) //dateTime'a göre sıralı tasks
+                        .thenComparing(task -> task.getPersonnel().getUsername()));
     }
 
     public static TaskRepository getInstance(){
@@ -35,7 +38,7 @@ public class TaskRepository implements ITaskRepository {
     }
 
     @Override
-    public List<TaskAssignment> findAll() {
+    public Set<TaskAssignment> findAll() {
         return tasks;
     }
 
@@ -59,6 +62,16 @@ public class TaskRepository implements ITaskRepository {
         List<TaskAssignment> list = new ArrayList<>();
         for (TaskAssignment i: this.tasks){
             if(i.getPersonnel().getUsername().equals(personnel.getUsername()))
+                list.add(i);
+        }
+        return list;
+    }
+
+    @Override
+    public List<TaskAssignment> getTasksByDate(LocalDate date) {
+        List<TaskAssignment> list = new ArrayList<>();
+        for (TaskAssignment i: this.tasks){
+            if(i.getDate().equals(date))
                 list.add(i);
         }
         return list;

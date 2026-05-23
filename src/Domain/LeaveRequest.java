@@ -16,7 +16,7 @@ public class LeaveRequest {
         this.isApproved = builder.isApproved;
     }
 
-    public String getLeaveRequestDetails(){
+   public String getLeaveRequestDetailsLong(){
         String student = "Student: " + this.student.getFirstName() + " " + this.student.getLastName() + "\n";
         String date = "Start Date: " + this.startDate.toString() + "   End Date: " + this.endDate.toString() + "\n";
         String parentalConsent = "", isApproved = "";
@@ -26,6 +26,11 @@ public class LeaveRequest {
         else isApproved = "Pending/Rejected\n";
 
         return student + date + parentalConsent + isApproved;
+    }
+
+    public String getLeaveRequestDetailsShort(){
+        return String.format("%s %s: %s - %s Approved: %s",
+                this.student.getFirstName(),this.student.getLastName(),this.startDate.toString(),this.endDate.toString(),this.isApproved);
     }
 
 

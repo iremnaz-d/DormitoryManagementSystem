@@ -5,7 +5,11 @@ import Domain.*;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Set;
 
 public class DormitoryFacade {
 
@@ -49,6 +53,14 @@ public class DormitoryFacade {
         return this.authService.register(userType,username,password,name, title0jobType);
     }
 
+    public Student findStudentByNameSurname(String firstName, String lastName){
+        return this.authService.findStudentByNameSurname(firstName,lastName);
+    }
+
+    public List<User> getAllUserType(String userType){
+        return this.authService.getAllUserType(userType);
+    }
+
     public boolean publishMenu(LocalDate date, String [] items){
         return this.diningService.publishMenu(date,items);
     }
@@ -69,15 +81,23 @@ public class DormitoryFacade {
         return this.leaveService.postponeEndDate(student,date);
     }
 
+    public List<LeaveRequest> getUnapprovedRequests(){
+        return this.leaveService.getUnapprovedRequests();
+    }
+
+    public List<LeaveRequest> getRequestsByStudent(Student student){
+        return this.leaveService.getRequestsByStudent(student);
+    }
+
     public boolean generateTimeTable(DayOfWeek day){
         return this.shuttleService.generateTimeTable(day);
     }
 
-    private void publishSchedule(ShuttleSchedule schedule){
-        this.shuttleService.publishSchedule(schedule);
+    public LocalTime getWantedSessionforWantedDay(DayOfWeek day, int session){
+        return this.shuttleService.getWantedSessionforWantedDay(day, session);
     }
 
-    public boolean assignTask(Personnel personnel, String taskName, LocalDateTime dateTime, String location){
+    public TaskAssignment assignTask(Personnel personnel, String taskName, LocalDateTime dateTime, String location){
         return this.staffOperationsService.assignTask(personnel,taskName,dateTime,location);
     }
 
@@ -87,6 +107,10 @@ public class DormitoryFacade {
 
     public List<TaskAssignment> getTasksForPersonnel(Personnel personnel){
         return this.staffOperationsService.getTasksForPersonnel(personnel);
+    }
+
+    public Set<TaskAssignment> getAllTasks(){
+        return this.staffOperationsService.getAllTasks();
     }
 
     public boolean submitEvaluation(String day, int score, String comment){
@@ -99,5 +123,17 @@ public class DormitoryFacade {
 
     public String bookMachine(Student student, int floor){
         return this.laundryService.bookMachine(student,floor);
+    }
+
+    //Besides Services
+
+    public LocalDate parseLocalDate(String localDateString) {
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            return LocalDate.parse(localDateString, formatter);
+
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Illegal date format. (dd.MM.yyyy)");
+        }
     }
 }

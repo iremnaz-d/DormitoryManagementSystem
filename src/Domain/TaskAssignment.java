@@ -1,5 +1,6 @@
 package Domain;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class TaskAssignment {
@@ -18,12 +19,18 @@ public class TaskAssignment {
         this.taskDescription = "";
     }
 
-    public String getTaskDetails(){
-        return "ğ";
+    public String getTaskDetails(){//PersonnelName, day, hour, taskName, location
+        String s = String.format("| %-10s | %-10s | %-3d | %-15s | %-15s |\n",
+                this.personnel.getName(),this.dateTime.getDayOfWeek().toString(), this.getDateTime().getHour(),this.taskName,this.location);
+        return s;
     }
 
     public Personnel getPersonnel() {
         return personnel;
+    }
+
+    public LocalDate getDate(){
+        return this.dateTime.toLocalDate();
     }
 
     public void setPersonnel(Personnel personnel) {

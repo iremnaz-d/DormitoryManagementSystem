@@ -39,12 +39,36 @@ public class LeaveRepository implements ILeaveRepository {
     }
 
     @Override
-    public LeaveRequest findByStudent(Student student) {
+    public List<LeaveRequest> findAllByStudent(Student student) {
+        List<LeaveRequest> list = new ArrayList<>();
         for (LeaveRequest i: leaveRequests){
+            if(i.getStudent().getUsername().equals(student.getUsername())){
+                list.add(i);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<LeaveRequest> getUnapprovedRequests() {
+        List<LeaveRequest> allRequests = this.findAll();
+        List<LeaveRequest> unapprovedRequests = new ArrayList<>();
+        for (LeaveRequest request: allRequests){
+            if(!request.isApproved())
+                unapprovedRequests.add(request);
+        }
+        return unapprovedRequests;
+    }
+
+    @Override
+    public LeaveRequest findByStudent(Student student) {
+        for (LeaveRequest i: leaveRequests.reversed()){
             if(i.getStudent().getUsername().equals(student.getUsername())){
                 return i;
             }
         }
         return null;
     }
+
+
 }

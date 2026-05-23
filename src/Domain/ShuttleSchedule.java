@@ -2,6 +2,7 @@ package Domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -13,6 +14,15 @@ public class ShuttleSchedule { //bir günün servis saatleri
     public ShuttleSchedule (DayOfWeek day){
         this.day = day;
         this.departureTimes = new TreeSet<>();
+    }
+
+    public LocalTime getTimeBySession(int session){
+        Iterator<LocalTime> iterator = this.departureTimes.iterator();
+        LocalTime time = iterator.next();
+        for (int i = 1; i < session; i++){
+            time = iterator.next();
+        }
+        return time;
     }
 
     public String getShuttleScheduleDetails(){

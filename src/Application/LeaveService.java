@@ -7,6 +7,7 @@ import Domain.Student;
 import Infrastructure.LeaveRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class LeaveService {
 
@@ -49,8 +50,21 @@ public class LeaveService {
             return "Request not found.";
         request.setEndDate(date);
         request.rejectRequest();
-        return "Your request is postponed to " + date.toString()
+        return "Your request is postponed to " + date.toString() + "but not approved yet."
          + "/nParental consent for leave delay is mandatory";
     }
+
+    public List<LeaveRequest> getAllRequests(){
+        return this.repository.findAll();
+    }
+
+    public List<LeaveRequest> getUnapprovedRequests(){
+        return this.repository.getUnapprovedRequests();
+    }
+
+    public List<LeaveRequest> getRequestsByStudent(Student student){
+        return this.repository.findAllByStudent(student);
+    }
+
 
 }

@@ -12,5 +12,9 @@ public interface ILeaveRepository {
 
     List<LeaveRequest> findAll();
 
+    List<LeaveRequest> findAllByStudent(Student student);
+
+    List<LeaveRequest> getUnapprovedRequests();
+
     LeaveRequest findByStudent(Student student);
 }

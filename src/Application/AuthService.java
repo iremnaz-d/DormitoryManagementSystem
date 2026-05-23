@@ -8,6 +8,8 @@ import Domain.Student;
 import Domain.User;
 import Infrastructure.UserRepository;
 
+import java.util.List;
+
 public class AuthService {
 
     private IUserRepository repository;
@@ -69,5 +71,18 @@ public class AuthService {
             return true;
         }
         return false;
+    }
+
+    public List<User> getAllUserType(String userType){
+        if(userType.equalsIgnoreCase("personnel") || userType.equalsIgnoreCase("student") || userType.equalsIgnoreCase("authorized personnel")){
+           return this.repository.getAllUserType(userType);
+        }
+        else{
+            throw new IllegalArgumentException("Enter a valid user type (Personnel / Student / Authorized Personnel)");
+        }
+    }
+
+    public Student findStudentByNameSurname(String firstName, String lastName){
+        return this.repository.findStudentByNameSurname(firstName,lastName);
     }
 }

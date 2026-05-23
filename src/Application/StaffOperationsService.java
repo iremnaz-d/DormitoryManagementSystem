@@ -7,6 +7,7 @@ import Infrastructure.TaskRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 public class StaffOperationsService {
 
@@ -16,7 +17,7 @@ public class StaffOperationsService {
         this.repository = TaskRepository.getInstance();
     }
 
-    public boolean assignTask(Personnel personnel, String taskName, LocalDateTime dateTime, String location){
+    public TaskAssignment assignTask(Personnel personnel, String taskName, LocalDateTime dateTime, String location){
 
         TaskAssignment task = new TaskAssignment.TaskAssignmentBuilder()
                 .withTaskName(taskName)
@@ -26,7 +27,7 @@ public class StaffOperationsService {
                 .build();
 
         this.repository.save(task);
-        return true;
+        return task;
     }
 
     public boolean addDescriptionToTask(TaskAssignment task, String description){
@@ -38,5 +39,9 @@ public class StaffOperationsService {
 
     public List<TaskAssignment> getTasksForPersonnel(Personnel personnel){
         return this.repository.getTasksForPersonnel(personnel);
+    }
+
+    public Set<TaskAssignment> getAllTasks(){
+       return this.repository.findAll();
     }
 }

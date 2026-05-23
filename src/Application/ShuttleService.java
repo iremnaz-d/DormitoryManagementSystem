@@ -7,6 +7,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ShuttleService {
 
@@ -54,4 +55,8 @@ public class ShuttleService {
         this.repository.save(schedule);
     }
 
+    public LocalTime getWantedSessionforWantedDay(DayOfWeek day, int session){
+        ShuttleSchedule shuttleSchedule = this.repository.findByDay(day);
+        return shuttleSchedule.getTimeBySession(session);
+    }
 }

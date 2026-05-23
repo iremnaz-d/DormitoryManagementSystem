@@ -38,4 +38,11 @@ public class ShuttleScheduleRepository implements IShuttleScheduleRepository {
     public ShuttleSchedule findByDay(DayOfWeek day) {
         return this.shuttleScheduleMap.get(day);
     }
+
+    @Override
+    public Map<DayOfWeek, ShuttleSchedule> getShuttleMap() {
+        return shuttleScheduleMap;
+    }
+
+
 }
