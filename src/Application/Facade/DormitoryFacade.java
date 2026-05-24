@@ -81,7 +81,7 @@ public class DormitoryFacade {
         return this.leaveService.submitLeaveRequest(student, startDate,endDate);
     }
 
-    public boolean verifyParentalConsentAndApproveRequest(Student student){
+    public String verifyParentalConsentAndApproveRequest(Student student){
         return this.leaveService.verifyParentalConsentAndApproveRequest(student);
     }
 
