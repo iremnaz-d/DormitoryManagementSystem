@@ -22,7 +22,7 @@ public class UserFactory {
             case "personnel":
                 return new Personnel(username, password, "Personnel", name, title0jobtype);
 
-            case "admin":
+            case "authorized personnel":
                 return new AuthorizedPersonnel(username,password,"Admin", name, title0jobtype);
 
             default:

@@ -29,29 +29,36 @@ public class LeaveMenuUI extends BaseMenuUI{
             System.out.println("3. Postpone end date for your current leave");
         }
         else if(this.currentUser instanceof AuthorizedPersonnel){
-            System.out.println("1.Approve a leave request and parental consent");
+            System.out.println("1. Approve a leave request and parental consent");
+            System.out.println("2. View all leave requests");
         }
     }
 
     @Override
-    protected boolean handleChoice(int choice) {
+    protected boolean handleChoice(String choice) {
         switch (choice){
-            case 1:
+            case "1":
                 if(this.currentUser instanceof AuthorizedPersonnel){ //Approve a leave request and parental consent
-                    System.out.println("UNAPPROVED LEAVE REQUESTS");
                     List<LeaveRequest> unapprovedRequests = this.facade.getUnapprovedRequests();
+                    if(unapprovedRequests.isEmpty()){
+                        System.out.println("There is not any pending leave request at this moment."); return true;
+                    }
+                    System.out.println("UNAPPROVED LEAVE REQUESTS");
                     for(LeaveRequest request: unapprovedRequests){
                         System.out.println(request.getLeaveRequestDetailsShort());
                     }
 
-                    System.out.print("Enter student name to approve leave request: "); String namesurname = this.scan.nextLine();
+                    System.out.print("Enter student name and surname to approve leave request: "); String namesurname = this.scan.nextLine();
                     String[] str = namesurname.split(" ");
+                    if(str.length < 2){
+                        System.out.println("Please enter student NAME AND SURNAME");
+                        return true;
+                    }
                     Student student = this.facade.findStudentByNameSurname(str[0], str[1]);
                     if(student == null){
                         System.out.println("Invalid student name or surname."); return true;
                     }
-                    this.facade.verifyParentalConsentAndApproveRequest(student);
-                    System.out.println("Leave request approved.");
+                    System.out.println(this.facade.verifyParentalConsentAndApproveRequest(student));
                     return true;
                 }
                 else if(this.currentUser instanceof Student student){// Submit a leave request
@@ -78,18 +85,30 @@ public class LeaveMenuUI extends BaseMenuUI{
                     System.out.println("Leave request has successfully submitted. Admin will approve your request when your parent forwards approval message");
                     return true;
                 }
-            case 2: //View your leave requests
+            case "2": //View your leave requests
                 if(this.currentUser instanceof Student student){
                     List<LeaveRequest> requests = this.facade.getRequestsByStudent(student);
+                    if(requests.isEmpty()){
+                        System.out.println("There is not any leave request recorded on you."); return true;
+                    }
                     for (LeaveRequest request: requests){
                         System.out.print(request.getLeaveRequestDetailsLong());
+                    }
+                }
+                else if(this.currentUser instanceof AuthorizedPersonnel){ //View all leave requests
+                    List<LeaveRequest> allRequests = this.facade.getAllRequests();
+                    if(allRequests.isEmpty()){
+                        System.out.println("There is not any leave requests at this moment."); return true;
+                    }
+                    for (LeaveRequest request: allRequests){
+                        System.out.println(request.getLeaveRequestDetailsShort());
                     }
                 }
                 else{
                     System.out.println("Invalid input.");
                 }
                 return true;
-            case 3: //Postpone end date for your current leave
+            case "3": //Postpone end date for your current leave
                 if(this.currentUser instanceof Student student){
                     List<LeaveRequest> requests = this.facade.getRequestsByStudent(student);
                     LeaveRequest requestToPostpone = null;
@@ -110,7 +129,7 @@ public class LeaveMenuUI extends BaseMenuUI{
                         System.out.println(e.toString()); return true;
                     }
 
-                    System.out.print(this.facade.postponeEndDate(student, endDate));
+                    System.out.println(this.facade.postponeEndDate(student, endDate));
                     return true;
                 }
                 else{

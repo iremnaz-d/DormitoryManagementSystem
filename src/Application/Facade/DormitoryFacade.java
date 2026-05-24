@@ -46,11 +46,19 @@ public class DormitoryFacade {
     }
 
     public boolean register(String userType, String username, String password, String firstName, String lastName, int roomNumber){
+        if(userType.equalsIgnoreCase("student") || userType.equalsIgnoreCase("personnel") || userType.equalsIgnoreCase("authorized personnel") )
         return this.authService.register(userType,username,password,firstName,lastName,roomNumber);
+        else{
+            throw new IllegalArgumentException("User type is invalid. (Student / Personnel / Authorized Personnel)");
+        }
     }
 
     public boolean register(String userType, String username, String password, String name, String title0jobType){
-        return this.authService.register(userType,username,password,name, title0jobType);
+        if(userType.equalsIgnoreCase("student") || userType.equalsIgnoreCase("personnel") || userType.equalsIgnoreCase("authorized personnel") )
+            return this.authService.register(userType,username,password,name, title0jobType);
+        else{
+            throw new IllegalArgumentException("User type is invalid. (Student / Personnel / Authorized Personnel)");
+        }
     }
 
     public Student findStudentByNameSurname(String firstName, String lastName){
@@ -87,6 +95,10 @@ public class DormitoryFacade {
 
     public List<LeaveRequest> getRequestsByStudent(Student student){
         return this.leaveService.getRequestsByStudent(student);
+    }
+
+    public List<LeaveRequest> getAllRequests(){
+        return this.leaveService.getAllRequests();
     }
 
     public boolean generateTimeTable(DayOfWeek day){

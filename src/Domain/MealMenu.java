@@ -15,7 +15,7 @@ public class MealMenu {
     }
 
     public String getMenuDetails(){
-        String s = date.getDayOfWeek().toString() + "\n";
+        String s = date.getDayOfMonth() + "." + date.getMonth() + " " +  date.getDayOfWeek().toString() + "\n";
         for (String item: mealItems){
             s += item + "\n";
         }

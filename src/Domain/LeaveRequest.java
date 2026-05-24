@@ -20,10 +20,10 @@ public class LeaveRequest {
         String student = "Student: " + this.student.getFirstName() + " " + this.student.getLastName() + "\n";
         String date = "Start Date: " + this.startDate.toString() + "   End Date: " + this.endDate.toString() + "\n";
         String parentalConsent = "", isApproved = "";
-        if(this.parentalConsent) parentalConsent = "Parent has not approved yet.\n";
+        if(!this.parentalConsent) parentalConsent = "Parent has not approved yet.\n";
         else parentalConsent = "Parent has approved the Leave Request.\n";
         if(this.isApproved) isApproved = "Approved.\n";
-        else isApproved = "Pending/Rejected\n";
+        else isApproved = "Pending/Rejected\n\n";
 
         return student + date + parentalConsent + isApproved;
     }

@@ -22,7 +22,7 @@ public class StaffMenuUI extends  BaseMenuUI{
 
     @Override
     protected String getMenuTitle() {
-        return "-----STAFF OPERATIONS MENU-----";
+        return "----STAFF OPERATIONS MENU----";
     }
 
     @Override
@@ -38,16 +38,25 @@ public class StaffMenuUI extends  BaseMenuUI{
     }
 
     @Override
-    protected boolean handleChoice(int choice) {
+    protected boolean handleChoice(String choice) {
         switch (choice){
-            case 1: // View personnel schedules
+            case "1": // View personnel schedules
                 Set<TaskAssignment> allTasks = this.facade.getAllTasks();
+                if(allTasks.isEmpty()){
+                    System.out.println("There is not any published tasks at this moment."); return true;
+                }
+
                 Iterator<TaskAssignment> it = allTasks.iterator();
-                System.out.print(it.next().getTaskDetails());
+                while(it.hasNext()){
+                    System.out.print(it.next().getTaskDetails());
+                }
                 return true;
-            case 2:
+            case "2":
                 if(this.currentUser instanceof Personnel personnel){ // See your assigned tasks
                     List<TaskAssignment> tasks = this.facade.getTasksForPersonnel(personnel);
+                    if(tasks.isEmpty()){
+                        System.out.println("There is not any published tasks for you at this moment."); return true;
+                    }
                     for (TaskAssignment task: tasks){
                         System.out.print(task.getTaskDetails());
                     }
@@ -66,7 +75,7 @@ public class StaffMenuUI extends  BaseMenuUI{
                         System.out.println("Personnel name is invalid."); return true;
                     }
 
-                    System.out.print("\nEnter task date (dd.MM-HH): ");  String s = this.scan.nextLine();
+                    System.out.print("Enter task date (dd.MM-HH): ");  String s = this.scan.nextLine();
                     LocalDateTime taskDateTime = null;
                     try {
                         // Builder kullanarak formattaki eksik parçaları (Yıl ve Dakika) varsayılan değerlerle dolduruyoruz
@@ -82,8 +91,8 @@ public class StaffMenuUI extends  BaseMenuUI{
                         System.out.println("Invalid date input. (ex: 23.05-16)"); return true;
                     }
 
-                    System.out.print("\nEnter task name: "); String taskName = this.scan.nextLine();
-                    System.out.print("\nEnter task location: "); String taskLocation = this.scan.nextLine();
+                    System.out.print("Enter task name: "); String taskName = this.scan.nextLine();
+                    System.out.print("Enter task location: "); String taskLocation = this.scan.nextLine();
 
                     TaskAssignment newTask = this.facade.assignTask(personnelMap.get(name),taskName,taskDateTime,taskLocation);
                     System.out.print("Task is assigned successfully.");
@@ -91,7 +100,7 @@ public class StaffMenuUI extends  BaseMenuUI{
                     while(true){
                         System.out.print("\nDo you want to add description? (y/n)"); String yesno = this.scan.nextLine();
                         if(yesno.equalsIgnoreCase("y")){
-                            System.out.print("\nEnter task description: "); String taskDescription = this.scan.nextLine();
+                            System.out.print("Enter task description: "); String taskDescription = this.scan.nextLine();
                             this.facade.addDescriptionToTask(newTask, taskDescription);
                             System.out.println("Task description added successfully.");
                             break;

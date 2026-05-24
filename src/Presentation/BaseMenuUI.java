@@ -20,16 +20,16 @@ public abstract class BaseMenuUI {
 
     protected abstract void showOptions();
 
-    protected abstract boolean handleChoice(int choice);
+    protected abstract boolean handleChoice(String choice);
 
     public final void display(){
         boolean running = true;
         while(running){
-            this.getMenuTitle();
+            System.out.println(this.getMenuTitle());
             this.showOptions();
             System.out.println("0. Return\n-------------------------");
-            int input = scan.nextInt();
-            if(input == 0)
+            String input = scan.nextLine();
+            if(input.equals("0"))
                 running = false;
             else
                 handleChoice(input);

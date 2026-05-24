@@ -12,7 +12,7 @@ public class LaundryMenuUI extends BaseMenuUI{
 
     @Override
     protected String getMenuTitle() {
-        return "-----LAUNDRY MENU-----";
+        return "------LAUNDRY MENU------";
     }
 
     @Override
@@ -22,16 +22,17 @@ public class LaundryMenuUI extends BaseMenuUI{
     }
 
     @Override
-    protected boolean handleChoice(int choice) {
+    protected boolean handleChoice(String choice) {
         switch (choice){
-            case 1:
+            case "1":
                 if(this.currentUser instanceof Student student) {
-                    System.out.print("Enter floor number (1-6): "); int n = this.scan.nextInt();
-                    if(n<1 || n>6) {
+                    System.out.print("Enter floor number (1-6): "); String floorString = this.scan.nextLine();
+                    int floor = Integer.parseInt(floorString);
+                    if(floor<1 || floor>6) {
                         System.out.println("\nInvalid floor number. (1-6)");
                         return true;
                     }
-                    this.facade.bookMachine(student,n);
+                    System.out.println(this.facade.bookMachine(student,floor));
                 }return true;
             default:
                 System.out.println("Invalid option."); return true;

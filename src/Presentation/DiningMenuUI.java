@@ -2,6 +2,7 @@ package Presentation;
 
 import Application.Facade.DormitoryFacade;
 import Domain.AuthorizedPersonnel;
+import Domain.MealMenu;
 import Domain.User;
 
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class DiningMenuUI extends BaseMenuUI{
 
     @Override
     protected String getMenuTitle() {
-        return "-----DINING MENU-----";
+        return "-------DINING MENU-------";
     }
 
     @Override
@@ -31,10 +32,10 @@ public class DiningMenuUI extends BaseMenuUI{
     }
 
     @Override
-    protected boolean handleChoice(int choice) {
+    protected boolean handleChoice(String choice) {
         LocalDate menuDate = null;
         switch (choice){
-            case 1: //see meal menu
+            case "1": //see meal menu
                 System.out.print("Enter menu date (DD.MM) "); String s1 = this.scan.nextLine();
                 try {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM");
@@ -42,11 +43,17 @@ public class DiningMenuUI extends BaseMenuUI{
                     int currentYear = LocalDate.now().getYear();
                     menuDate = parsedMonthDay.atYear(currentYear);
 
-                    this.facade.getMenuByDate(menuDate);
+                    MealMenu menu = this.facade.getMenuByDate(menuDate);
+                    if(menu == null){
+                        System.out.println("There is not any published meal menu in this date.");
+                        return true;
+                    }
+                    System.out.println(menu.getMenuDetails());
+                    return true;
                 } catch (DateTimeParseException e) {
                     System.out.println("Incorrect date input. (DD.MM)"); return true;
                 }
-            case 2: //publish meal menu
+            case "2": //publish meal menu
                 if(this.currentUser instanceof AuthorizedPersonnel){
                     System.out.print("Enter menu date (DD.MM) "); String s2 = this.scan.nextLine();
                     try {
@@ -69,6 +76,7 @@ public class DiningMenuUI extends BaseMenuUI{
                     }
 
                     this.facade.publishMenu(menuDate,cleanItems);
+                    System.out.println("Menu is created successfully.");
                 }else {
                     System.out.println("Option '2' is invalid.");
                 } return true;

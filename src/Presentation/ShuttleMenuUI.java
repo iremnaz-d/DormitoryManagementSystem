@@ -28,7 +28,7 @@ public class ShuttleMenuUI extends BaseMenuUI{
     }
 
     @Override
-    protected boolean handleChoice(int choice) {
+    protected boolean handleChoice(String choice) {
         DayOfWeek monday = DayOfWeek.MONDAY;
         DayOfWeek tuesday = DayOfWeek.TUESDAY;
         DayOfWeek wednesday = DayOfWeek.WEDNESDAY;
@@ -36,7 +36,7 @@ public class ShuttleMenuUI extends BaseMenuUI{
         DayOfWeek friday = DayOfWeek.FRIDAY;
 
         switch (choice){
-            case 1:
+            case "1":
                 System.out.printf("%-10s : %-10s : %-10s : %-10s : %-10s\n",
                         monday.toString(), tuesday.toString(), wednesday.toString(), thursday.toString(), friday.toString());
                 for (int i = 1; i <= 5; i++){
@@ -45,11 +45,14 @@ public class ShuttleMenuUI extends BaseMenuUI{
                     LocalTime time3 = this.facade.getWantedSessionforWantedDay(wednesday,i);
                     LocalTime time4 = this.facade.getWantedSessionforWantedDay(thursday,i);
                     LocalTime time5 = this.facade.getWantedSessionforWantedDay(friday,i);
+                    if(time1 == null){
+                        System.out.println("There is no published shuttle schedule yet."); return true;
+                    }
                     System.out.printf("%-10s : %-10s : %-10s : %-10s : %-10s\n",
                             time1.toString(), time2.toString(), time3.toString(), time4.toString(),time5.toString());
                 } return true;
 
-            case 2:
+            case "2":
                 if(this.currentUser instanceof AuthorizedPersonnel){
                     for (int i = 1; i <= 5; i++){
                         this.facade.generateTimeTable(DayOfWeek.of(i));

@@ -20,8 +20,14 @@ public class TaskAssignment {
     }
 
     public String getTaskDetails(){//PersonnelName, day, hour, taskName, location
-        String s = String.format("| %-10s | %-10s | %-3d | %-15s | %-15s |\n",
-                this.personnel.getName(),this.dateTime.getDayOfWeek().toString(), this.getDateTime().getHour(),this.taskName,this.location);
+        String s = String.format("| %-10s | %-9s , %-5s | %-15s | %-10s |",
+                this.personnel.getName(),this.dateTime.getDayOfWeek().toString(), this.getDateTime().toString(),this.taskName,this.location);
+        if(!this.taskDescription.isEmpty()){
+            s += this.taskDescription + "\n";
+        }
+        else{
+            s += "\n";
+        }
         return s;
     }
 

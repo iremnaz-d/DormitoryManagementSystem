@@ -55,8 +55,11 @@ public class ShuttleService {
         this.repository.save(schedule);
     }
 
-    public LocalTime getWantedSessionforWantedDay(DayOfWeek day, int session){
+    public LocalTime getWantedSessionforWantedDay(DayOfWeek day, int session) {
         ShuttleSchedule shuttleSchedule = this.repository.findByDay(day);
+        if(shuttleSchedule == null){
+           return null;
+        }
         return shuttleSchedule.getTimeBySession(session);
     }
 }

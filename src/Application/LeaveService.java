@@ -33,15 +33,20 @@ public class LeaveService {
         return true;
     }
 
-    public boolean verifyParentalConsentAndApproveRequest(Student student){
+    public String verifyParentalConsentAndApproveRequest(Student student){
         LeaveRequest requestToApprove = this.repository.findByStudent(student);
 
+
         if(requestToApprove == null)
-            return false;
+            return "Request not found.";
+
+        if(requestToApprove.isApproved()){
+            return "Last active request is already approved.";
+        }
 
         requestToApprove.setParentalConsent(true);
         requestToApprove.approveRequest();
-        return true;
+        return "Leave request approved.";
     }
 
     public String postponeEndDate(Student student, LocalDate date){
@@ -50,8 +55,7 @@ public class LeaveService {
             return "Request not found.";
         request.setEndDate(date);
         request.rejectRequest();
-        return "Your request is postponed to " + date.toString() + "but not approved yet."
-         + "/nParental consent for leave delay is mandatory";
+        return String.format("Your request is postponed to %s but not approved yet.\nParental consent for leave delay is mandatory", date.toString());
     }
 
     public List<LeaveRequest> getAllRequests(){
